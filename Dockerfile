@@ -11,6 +11,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install selected extensions and other stuff
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
+    wget \
+    fontconfig \
+    libxrender1 \
+    xfonts-75dpi \
+    xfonts-base \
     locales \
     php-memcached \
     php7.3-mysql \
@@ -61,3 +66,10 @@ RUN update-locale LANG="pt_BR.UTF-8" LANGUAGE="pt_BR.UTF-8" LC_ALL="pt_BR.UTF-8"
 # Update timezone
 RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/America/Recife /etc/localtime
+
+# Install wkhtmltopdf
+RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && \
+    dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb && \
+    apt-get install -f && \
+    ln -s /usr/local/bin/wkhtmltopdf /usr/bin && \
+    ln -s /usr/local/bin/wkhtmltoimage /usr/bin
