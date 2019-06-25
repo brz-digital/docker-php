@@ -16,7 +16,6 @@ RUN apt-get update \
     libxrender1 \
     xfonts-75dpi \
     xfonts-base \
-    locales \
     php-memcached \
     php7.3-mysql \
     php7.3-pgsql \
@@ -60,8 +59,15 @@ RUN sed -i "/post_max_size = .*/c\post_max_size = 100M" /etc/php/7.3/fpm/php.ini
     sed -i "/upload_max_filesize = .*/c\upload_max_filesize = 108M" /etc/php/7.3/fpm/php.ini
 
 # Update locale
-RUN locale-gen "pt_BR.UTF-8"
-RUN update-locale LANG="pt_BR.UTF-8" LANGUAGE="pt_BR.UTF-8" LC_ALL="pt_BR.UTF-8"
+RUN apt-get update && apt-get install -y \
+    locales \
+    && echo '' >> /usr/share/locale/locale.alias \
+    && sed -i 's/# pt_BR.UTF-8 UTF-8/pt_BR.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen
+
+ENV LANG pt_BR.UTF-8  
+ENV LANGUAGE pt_BR:en  
+ENV LC_ALL pt_BR.UTF-8
 
 # Update timezone
 RUN unlink /etc/localtime
