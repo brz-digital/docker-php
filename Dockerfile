@@ -25,6 +25,7 @@ RUN apt-get update \
     php7.3-bcmath \
     php7.3-bz2 \
     php7.3-dba \
+    php7.3-json \
     php7.3-enchant \
     php7.3-gd \
     php-gearman \
