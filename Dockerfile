@@ -76,7 +76,7 @@ RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/America/Recife /etc/localtime
 
 # Install wkhtmltopdf
-RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && \
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && \
     dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb && \
     apt-get install -f && \
     ln -s /usr/local/bin/wkhtmltopdf /usr/bin && \
